@@ -5,7 +5,7 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
-import './index.css';
+// import './index.css';
 import Root from './routes/root';
 import Home from './routes/home';
 import PaperList from './routes/paper-list/paperList';
