@@ -1,19 +1,34 @@
-import{ useState, React  } from 'react';
+import{ useState, React, useEffect } from 'react';
 import { Table,Button,Modal } from '@arco-design/web-react';
+import httpServer from '../../httpServer';
+import { useMatches, useParams } from "react-router-dom";
 
 
-const data = [
-  {
-    id: '1',
-    subject: 'math',
-    examname: '期末数学',
-    time:'120'
-  },
-
-];
 
 const  PaperList = () => {
+  const [data, setData] = useState();
   const [visible, setVisible] = useState(false);
+  const matches = useMatches();
+  // const subject = matches[0].params.subject;
+  const  {subject} = useParams();
+  console.log('subject',subject);
+  console.log('matches',matches);
+  async function getList() {
+    httpServer({
+      url: `/exam/examManagement/list?subject=${subject}`,
+      method: 'GET'
+    })
+    .then((res) => {
+      console.log('----res',res);
+      let respData = res.data;
+      if(res.status ===200 && respData.respCode ===1 ) {
+        setData(res.data.results);
+      }
+    })
+    .catch((err) => {
+      console.log('err',err);
+    })
+  }
   
 const columns = [
   {
@@ -48,10 +63,10 @@ const columns = [
       </div>
     ),
   },
-  {
-
-  }
 ];
+useEffect(()=>{
+  getList();
+},[])
 
   
   return <div>
