@@ -1,7 +1,7 @@
 import{ useState, React, useEffect } from 'react';
 import { Table,Button,Modal } from '@arco-design/web-react';
 import httpServer from '../../httpServer';
-import { useMatches, useParams } from "react-router-dom";
+import { useMatches, useParams, Link, Outlet } from "react-router-dom";
 
 
 
@@ -32,7 +32,7 @@ const  PaperList = () => {
   
 const columns = [
   {
-    title: '试卷编号',
+    title: '考试编号',
     dataIndex: 'id',
   },
   {
@@ -60,13 +60,19 @@ const columns = [
        } type='primary' status='default'  >
         开始考试
       </Button>  
-      </div>
+      </div>  
     ),
   },
 ];
 useEffect(()=>{
   getList();
 },[])
+  
+   function exam(id) {
+    console.log(id);
+    <Link  to={`/exam/123`}>查看</Link>
+    setVisible(false)
+  }
 
   
   return <div>
@@ -74,7 +80,7 @@ useEffect(()=>{
     <Modal
         title='Modal Title'
         visible={visible}
-        onOk={() => setVisible(false)}
+        onOk={() => exam()}
         onCancel={() => setVisible(false)}
         autoFocus={false}
         focusLock={true}
@@ -83,6 +89,7 @@ useEffect(()=>{
           确认开始考试？
         </p>
       </Modal>
+      <Outlet></Outlet>
     </div>;
 };
 
