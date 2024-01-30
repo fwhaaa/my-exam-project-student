@@ -1,13 +1,15 @@
 import{ useState, React, useEffect } from 'react';
 import { Table,Button,Modal } from '@arco-design/web-react';
 import httpServer from '../../httpServer';
-import { useMatches, useParams, Link, Outlet } from "react-router-dom";
+import { useMatches, useParams, Link, useNavigate } from "react-router-dom";
 
 
 
 const  PaperList = () => {
   const [data, setData] = useState();
   const [visible, setVisible] = useState(false);
+  const [currentRecord,setCurrentRecord] = useState(undefined);
+  const navigate =useNavigate();
   const matches = useMatches();
   // const subject = matches[0].params.subject;
   const  {subject} = useParams();
@@ -53,7 +55,8 @@ const columns = [
     render: (_, record) => ( 
       <div>
         <Button onClick={() =>{
-        // setCurrentRecord(record)
+          console.log('---log',record);
+        setCurrentRecord(record)
         // // form.setFieldsValue(record)
         setVisible(true)
       } 
@@ -67,20 +70,25 @@ const columns = [
 useEffect(()=>{
   getList();
 },[])
-  
-   function exam(id) {
-    console.log(id);
-    <Link  to={`/exam/123`}>查看</Link>
+    
+   function exam() {
+    console.log('----currentrecord',currentRecord);
+    console.log(currentRecord.paperId);
+    navigate(`/exam/take/${currentRecord.paperId}`);
     setVisible(false)
   }
 
-  
+  console.log('----enterpaperlist');
   return <div>
-    <Table columns={columns} data={data} />
-    <Modal
+    
+    {/* {
+      <Outlet /> ? <Outlet /> : <Table columns={columns} data={data} />
+      } */}
+      <Table columns={columns} data={data}></Table>
+       <Modal
         title='Modal Title'
         visible={visible}
-        onOk={() => exam()}
+        onOk={exam}
         onCancel={() => setVisible(false)}
         autoFocus={false}
         focusLock={true}
@@ -89,7 +97,8 @@ useEffect(()=>{
           确认开始考试？
         </p>
       </Modal>
-      <Outlet></Outlet>
+
+
     </div>;
 };
 

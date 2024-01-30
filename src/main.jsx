@@ -25,11 +25,14 @@ const router = createBrowserRouter([
         element: <Home />,       
       },
       {
-          path: "paperList/:subject",
-          element: <PaperList />,
+          path: "exam",
           children:[ 
             {
-              path: "exam",
+              path: "list/:subject",
+              element: <PaperList  />,
+            },
+            {
+              path: "take/:id",
               element: <Exam />,
             },
             {

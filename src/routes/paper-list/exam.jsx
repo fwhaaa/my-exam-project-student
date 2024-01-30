@@ -4,8 +4,10 @@ const FormItem = Form.Item;
 const Exam = () => {
 
 
-
+   console.log('enter');
   return (
+    <div>
+      <h1>exam</h1>
     <Form style={{ width: 600 }} autoComplete='off'>
       <FormItem >
        
@@ -20,6 +22,8 @@ const Exam = () => {
        
       </FormItem>
     </Form>
+    </div>
+
   );
 };
 

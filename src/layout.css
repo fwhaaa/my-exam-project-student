@@ -8,7 +8,7 @@
 .layout-basic-demo .arco-layout-sider,
 .layout-basic-demo .arco-layout-sider-children,
 .layout-basic-demo .arco-layout-content {
-  color: var(--color-white);
+  /* color: var(--color-white); */
   text-align: center;
   font-stretch: condensed;
   font-size: 16px;
