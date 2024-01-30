@@ -18,7 +18,7 @@ const Home = () => {
               <Card
                     className='card-demo-in-grid'
                     title='科目'
-                    extra={<Link  to={`/paperList/${value}`}>查看</Link>}
+                    extra={<Link  to={`/exam/list/${value}`}>查看</Link>}
                     bordered={false}
                   >
                     {value}

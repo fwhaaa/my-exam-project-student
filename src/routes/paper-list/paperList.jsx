@@ -81,9 +81,6 @@ useEffect(()=>{
   console.log('----enterpaperlist');
   return <div>
     
-    {/* {
-      <Outlet /> ? <Outlet /> : <Table columns={columns} data={data} />
-      } */}
       <Table columns={columns} data={data}></Table>
        <Modal
         title='Modal Title'
