@@ -1,8 +1,8 @@
-import { Card, Grid, Radio, Checkbox, Input} from '@arco-design/web-react';
+import { Card, Grid, Radio, Checkbox, Input, Form} from '@arco-design/web-react';
 const { Row, Col } = Grid;
 const RadioGroup = Radio.Group;
 const CheckboxGroup = Checkbox.Group;
-
+const FormItem = Form.Item;
 
 
 
@@ -10,22 +10,27 @@ const QuestionCard = ({question, index }) => {
     console.log('question in card',question);
     const options = [
         {
-            label: `A、${question.selectA}` 
+            label: `A、${question.selectA}`,
+            value: question.selectA
 
         },
         {
-            label: `B、${question.selectB}` 
-
+            label: `B、${question.selectB}` ,
+            value: question.selectB
         },
         {
-            label: `C、${question.selectC}` 
+            label: `C、${question.selectC}` ,
+            value: question.selectC
         },
         {
-            label: `D、${question.selectD}` 
+            label: `D、${question.selectD}` ,
+            value: question.selectD
         },
       ];
   return (
-     <Row gutter={20}>
+    <Form>
+        <FormItem>
+        <Row gutter={20}>
         <Col span={24}>
             <Card
             title={ `${index}、${question.stem}` }
@@ -41,6 +46,7 @@ const QuestionCard = ({question, index }) => {
                :
                 question.type === 'saq'    ?
                <Input></Input>
+               
                :
                 question.type === 'single' ?
                 <RadioGroup direction='vertical' >
@@ -55,6 +61,9 @@ const QuestionCard = ({question, index }) => {
             </Card>
         </Col>
     </Row>
+        </FormItem>
+    
+    </Form>
   );
 };
 
