@@ -5,6 +5,7 @@ import httpServer from '../../httpServer';
 import QuestionCard from './question-card';
 const RadioGroup = Radio.Group;
 const FormItem = Form.Item;
+const CheckboxGroup = Checkbox.Group;
 const { Row, Col } = Grid;
 const Exam = () => {
   const [ form ] =Form.useForm();
@@ -14,6 +15,7 @@ const Exam = () => {
   const [judge,setJudge] = useState();
   const [saq,setSaq] = useState();
   const [question,setQuestion] = useState();
+  
 
 
   let { paperId } = useParams();
@@ -54,7 +56,7 @@ const Exam = () => {
     console.log('answer',JSON.stringify(form.getFieldsValue()));
   }
 
-
+ 
 
   
   useEffect(()=>{
@@ -73,26 +75,78 @@ const Exam = () => {
            const singleObj = single[v];
            console.log('singleObj',singleObj);
            return (
-           <FormItem field={`${singleObj.id}`} label={`${index+1}、${singleObj.stem}`} style={{textAlign: 'left'}}>
-              {/* <QuestionCard question={singleObj} index={index+1}></QuestionCard> */}
-            {/* <Card
-            title={ `${index+1}、${singleObj.stem}` }
-            bordered={false}
-            style={{ width: '100%' }}
-            > */}   
-                {/* <div> */}
-                  {/* <p>{singleObj.stem}</p> */}
-                  <RadioGroup direction='vertical' >
-                      <Radio value={'a'}>A、{singleObj.selectA}</Radio>
-                      <Radio value={'b'}>B、{singleObj.selectB}</Radio>
-                      <Radio value={'c'}>C、{singleObj.selectC}</Radio>
-                      <Radio value={'d'}>D、{singleObj.selectD}</Radio>
-                  </RadioGroup>
-                {/* </div> */}
-                
-            {/* </Card> */}
- 
-           </FormItem>
+            <FormItem field={`single_${singleObj.id}`} label={`${index+1}、${singleObj.stem}`} style={{textAlign: 'left'}}>
+              <RadioGroup direction='vertical' >
+                  <Radio value={'a'}>A、{singleObj.selectA}</Radio>
+                  <Radio value={'b'}>B、{singleObj.selectB}</Radio>
+                  <Radio value={'c'}>C、{singleObj.selectC}</Radio>
+                  <Radio value={'d'}>D、{singleObj.selectD}</Radio>
+              </RadioGroup>
+            </FormItem>
+           )
+         })
+       }
+        <h3 style={{textAlign: 'left'}}>多选题</h3>
+       {
+        multiple && Object.keys(multiple).map((v,index)=> {
+          const multipleObj = multiple[v];
+          const options = [
+            {
+                label: `A、${multipleObj.selectB}`,
+                value: 'a'
+        
+            },
+            {
+                label: `B、${multipleObj.selectB}` ,
+                value: 'b'
+            },
+            {
+                label: `C、${multipleObj.selectC}` ,
+                value: 'c'
+            },
+            {
+                label: `D、${multipleObj.selectD}` ,
+                value: 'd'
+            },
+          ];
+          console.log('multipleObj',multipleObj);
+
+
+
+           return (
+          
+            <FormItem field={`multiple_${multipleObj.id}`} label={`${index+1}、${multipleObj.stem}`} style={{textAlign: 'left'}}>
+               <CheckboxGroup direction='vertical' options={options} />
+            </FormItem>
+           )
+         })
+       }
+         <h3 style={{textAlign: 'left'}}>判断题</h3>
+       {
+        judge && Object.keys(judge).map((v,index)=> {
+          const judgeObj = judge[v];
+          console.log('judgeObj',judgeObj);
+           return (
+          
+            <FormItem field={`judge_${judgeObj.id}`} label={`${index+1}、${judgeObj.stem}`} style={{textAlign: 'left'}}>
+                <RadioGroup direction='vertical' >
+                    <Radio value='true'>正确</Radio>
+                    <Radio value='false'>错误</Radio>
+                </RadioGroup>
+            </FormItem>
+           )
+         })
+       }
+        <h3 style={{textAlign: 'left'}}>简答题</h3>
+       {
+        saq && Object.keys(saq).map((v,index)=> {
+          const saqObj = saq[v];
+          console.log('saqObj',saqObj);
+           return (
+          
+            <FormItem field={`saq_${saqObj.id}`} label={`${index+1}、${saqObj.stem}`} style={{textAlign: 'left'}}>
+                <Input></Input>
+            </FormItem>
            )
          })
        }
