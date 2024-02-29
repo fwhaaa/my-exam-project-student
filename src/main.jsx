@@ -12,9 +12,14 @@ import PaperList from './routes/paper-list/paperList';
 import Exam from './routes/paper-list/exam';
 import Point from './routes/paper-list/point';
 import "@arco-design/web-react/dist/css/arco.css";
+import Login from './routes/Login';
 
 
 const router = createBrowserRouter([
+  {
+    path:'/login',
+    element:<Login></Login>
+  },
   {
     path: "/",
     element: <Root />,
@@ -32,7 +37,7 @@ const router = createBrowserRouter([
               element: <PaperList  />,
             },
             {
-              path: "take/:paperId",
+              path: "take/:id/:paperId",
               element: <Exam />,
             },
             {

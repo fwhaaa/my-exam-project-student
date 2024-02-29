@@ -2,11 +2,11 @@ import { Form, Input, Button, Checkbox, Radio, Grid, Card } from '@arco-design/w
 import{ useEffect, useState   } from 'react';
 import { useParams } from "react-router-dom";
 import httpServer from '../../httpServer';
-import QuestionCard from './question-card';
+
 const RadioGroup = Radio.Group;
 const FormItem = Form.Item;
 const CheckboxGroup = Checkbox.Group;
-const { Row, Col } = Grid;
+
 const Exam = () => {
   const [ form ] =Form.useForm();
   const [data, setData] = useState();
@@ -18,9 +18,22 @@ const Exam = () => {
   
 
 
+  let { id } = useParams();
   let { paperId } = useParams();
-  console.log('paperid',paperId);
 
+
+  async function saveData(data){
+    httpServer({
+      url: `/pending_approval/add/exam`
+    }, data)
+    .then((res) => {
+      let respData = res.data;
+    })
+    .catch((err) => {
+      console.log('err',err);
+    })
+  }
+console.log('((((((((paperId',paperId);
   async function getList() {
     httpServer({
       url: `/paper/paperManagement/list?id=${paperId}`,
@@ -35,6 +48,7 @@ const Exam = () => {
         res.data.results?.map((v)=>{
           const question=JSON.parse(v.questioncontent);
           console.log('---------question',question);
+          console.log('&&&&&&&&&&&single',question['single']);
           setSingle(question['single']);
           setMultiple(question['multiple']);
           setJudge(question['judge']);
@@ -52,8 +66,17 @@ const Exam = () => {
   console.log('----data',data);
 
   async function handSubmit() {
-    // JSON.stringify(form.getFieldsValue())
-    console.log('answer',JSON.stringify(form.getFieldsValue()));
+    const data =  form.getFieldsValue()
+    console.log('-------data',data);
+    const params = {
+     studentId: '001',
+     id,
+     paperId,
+     answer: JSON.stringify(data)
+    };
+
+    await saveData(params)
+    console.log('answer',JSON.stringify(data));
   }
 
  
@@ -150,42 +173,6 @@ const Exam = () => {
            )
          })
        }
-         {/* 多选
-          {
-           multiple && Object.keys(multiple).map((v,index)=> {
-           const multipleObj = multiple[v];
-           console.log('multipleObj',multipleObj);
-           return (
-           <FormItem field={'multiple'}>
-              <QuestionCard question={multipleObj} index={index+1}></QuestionCard>
-           </FormItem>
-           )
-         })
-       }
-         判断
-          {
-           judge && Object.keys(judge).map((v,index)=> {
-           const judgeObj = judge[v];
-           console.log(' judgeObj', judgeObj);
-           return (
-           <FormItem field={'judge'}>
-              <QuestionCard question={judgeObj} index={index+1}></QuestionCard>
-           </FormItem>
-           )
-         })
-       }  
-       简答
-          {
-           saq && Object.keys(saq).map((v,index)=> {
-           const saqObj = saq[v];
-           console.log('saqObj',saqObj ); 
-           return (
-           <FormItem field={'saq'}>
-              <QuestionCard question={saqObj} index={index+1}></QuestionCard>
-           </FormItem>
-           )
-         })
-       } */}
      <FormItem wrapperCol={{ offset: 5 }}>
           <Button type='primary'  onClick={handSubmit}    >提交</Button>
         </FormItem>

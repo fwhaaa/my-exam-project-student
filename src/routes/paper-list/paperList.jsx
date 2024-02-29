@@ -74,11 +74,11 @@ useEffect(()=>{
    function exam() {
     console.log('----currentrecord',currentRecord);
     console.log(currentRecord.paperId);
-    navigate(`/exam/take/${currentRecord.paperId}`);
+    navigate(`/exam/take/${currentRecord.id}/${currentRecord.paperId}`);
     setVisible(false)
   }
 
-  console.log('----enterpaperlist');
+  console.log('----markinglist');
   return <div>
     
       <Table columns={columns} data={data}></Table>
