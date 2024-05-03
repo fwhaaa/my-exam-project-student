@@ -5,7 +5,16 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+ 
+  /* background-image: url("./assets/6320.jpg_wh300.jpg"); */
+  background-size: cover;
+  background-color: #ffffff;
+  padding: 26px;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -64,4 +73,16 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}
+
+.student-login {
+  margin-top: 200px;
+}
+
+.card-custom-hover-style {
+  transition-property: all;
+}
+
+.card-custom-hover-style:hover {
+  transform: translateY(-4px);
 }

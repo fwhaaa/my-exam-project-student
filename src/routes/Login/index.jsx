@@ -2,7 +2,8 @@ import { Form, Input, Button, Checkbox, Message } from '@arco-design/web-react';
 import Password from '@arco-design/web-react/es/Input/password';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
-import httpServer from '../../../../my-exam-project-teacher/src/routes/httpServer';
+import httpServer from './../../httpServer';
+import '../../index.css';
 
 const Login = () => {
     const FormItem = Form.Item;
@@ -51,7 +52,7 @@ const Login = () => {
      BeforeRouterEnter()
    },[])
   return (
-    <div style={{ display:'flex',justifyContent: 'center',alignItems: 'center',width:'100%'}} >
+    <div className='student-login' >
         <Form form={form} style={{ width: '600px' }} autoComplete='off'>
             <FormItem label='用户名' field='username' rules={[{required:true}]}>
                 <Input placeholder='请输入账号' />

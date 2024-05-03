@@ -79,9 +79,9 @@ useEffect(()=>{
   }
 
   console.log('----markinglist');
-  return <div>
-    
-      <Table columns={columns} data={data}></Table>
+  return <div className='papar-list' style={{width: '1400px'}}>
+    <p>同学 冯文豪 你好！请选择考试试卷： </p>
+      <Table columns={columns} data={data} style={{  margin: '20px' }} ></Table>
        <Modal
         title='Modal Title'
         visible={visible}
